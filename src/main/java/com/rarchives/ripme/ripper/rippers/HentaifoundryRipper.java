@@ -84,7 +84,7 @@ public class HentaifoundryRipper extends AbstractHTMLRipper {
     @Override
     public List<String> getURLsFromPage(Document doc) {
         List<String> imageURLs = new ArrayList<String>();
-        Pattern imgRegex = Pattern.compile(".*/user/([a-zA-Z0-9\\-_]+)/(\\d+)/(.*)");
+        Pattern imgRegex = Pattern.compile(".*/user/([a-zA-Z0-9\\-_]+)/(\\d+)/.*");
         for (Element thumb : doc.select("td > a:first-child")) {
             if (isStopped()) {
                 break;
@@ -95,12 +95,17 @@ public class HentaifoundryRipper extends AbstractHTMLRipper {
                 continue;
             }
             String user = imgMatcher.group(1),
-                imageId = imgMatcher.group(2),
-                imageExtension = imgMatcher.group(3);
+                imageId = imgMatcher.group(2);
             String image = "http://pictures.hentai-foundry.com//";
             image += user.toLowerCase().charAt(0);
-            image += "/" + user + "/" + imageId + imageExtension;
-            imageURLs.add(image);
+            /*
+            image += "/" + user + "/" + imageId + ".jpg";
+            That's not a fix to #154, it's a stupid workaround
+            */
+            image += "/" + user + "/" + imageId;
+            imageURLs.add(image + ".jpg");
+            imageURLs.add(image + ".png");
+            imageURLs.add(image + ".gif");
         }
         return imageURLs;
     }
