@@ -98,10 +98,6 @@ public class HentaifoundryRipper extends AbstractHTMLRipper {
                 imageId = imgMatcher.group(2);
             String image = "http://pictures.hentai-foundry.com//";
             image += user.toLowerCase().charAt(0);
-            /*
-            image += "/" + user + "/" + imageId + ".jpg";
-            That's not a fix to #154, it's a stupid workaround
-            */
             image += "/" + user + "/" + imageId;
             imageURLs.add(image + ".jpg");
             imageURLs.add(image + ".png");
